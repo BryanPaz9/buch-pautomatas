@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Proyecto de autómatas">
+    <title>Proyecto Autómatas</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.all.min.js"></script>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/checkout/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css">
+
+
+    
+
+    
+
+<link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      /* Limita la altura total del contenedor y habilita scroll solo en el cuerpo de la tabla */
+      .table-container {
+        max-height: 300px; /* Altura fija del área de tabla */
+        overflow-y: auto;
+        /*border: 1px solid #dee2e6;  Opcional: borde para que resalte */
+      }
+
+      /* Fija el encabezado de la tabla */
+      .table-header th {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa; /* Color del encabezado */
+        z-index: 10; /* Asegura que el encabezado se superponga al contenido */
+        border-bottom: 2px solid #dee2e6;
+        font-weight: normal;
+      }
+
+      .table-header td tr {
+        position: sticky;
+        top: 0;
+        background-color: #ffffff; /* Color del encabezado */
+        z-index: 10; /* Asegura que el encabezado se superponga al contenido */
+        border-bottom: 2px solid #dee2e6;
+        font-weight: normal;
+      }
+
+      /* Ajusta el ancho de las columnas para evitar desajustes */
+      .table {
+        width: 100%;
+        table-layout: fixed;
+        font-weight: normal;
+      }
+
+      .custom-confirm-button {
+            background-color: rgb(65, 85, 136); /* Cambia este color al que desees */
+            color: white; /* Cambia el color del texto del botón */
+            border: none; /* Opcional: elimina el borde */
+            border-radius: 5px; /* Opcional: añade bordes redondeados */
+        }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    
+  <br>
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-sm-6">
+          <p>Nombre: Josue David Caal Sazo</p>
+          <p>Carnet:</p>
+        </div>
+        <div class="col-sm-6">
+          <p>Curso: Autómatas y lenguajes formales</p>
+          <p>Proyecto final, AFN y AFD</p>
+        </div>
+      </div>
+    </div>
+<div class="container">
+  <main>
+    <br>  
+
+    <div class="row g-5">
+      
+      <div class="col-md-12 col-lg-12" id="carga-archivo-form">
+        <div class="row g-3">
+          <div class="col-sm-9">
+            <p>Seleccione un archivo .txt</p>
+          </div>
+          <div class="col-sm-3">
+            <button id="btn-ejecutar" class="w-100 btn btn-success btn-sm"    type="submit" disabled></i> &nbsp;Ejecutar</button>
+          </div>
+        </div>
+
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-sm-12">
+              <div class="input-group mb-3">
+                <input type="file" class="form-control form-control-lg " id="archivo">
+              </div>
+            </div>
+          </div>
+          <!-- <hr class="my-2"> -->
+
+        </form>
+      </div>
+      <div class="mb-3" id="txt" style="display:none">
+        <label id="txttitle" for="txt-content" class="form-label "></label>
+        <textarea class="form-control" id="txt-content"  rows="5" disabled></textarea>
+      </div>
+      <!-- <hr class="my-0"> -->
+      <div class="col-sm-2" id="vectorQ" style="display:none;margin-top: 0;">
+        <label for="vectorQ" class="form-label ">Vectores</label>
+        <div class="table-container">
+          <table class="table">
+            <thead class="table-header">
+              <tr>
+                <th scope="col" class="table-active"> Estados</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyQ">
+  
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-2" id="vectorE" style="display:none;margin-top: 0;">
+        <label for="vectorE" class="form-label">&nbsp;</label>
+        <div class="table-container">
+          <table class="table">
+            <thead class="table-header">
+              <tr>
+                <th scope="col" class="table-active"> Alfabeto</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyZ">
+  
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-2" id="vectorA" style="display:none;margin-top: 0;">
+        <label for="vectorA" class="form-label">&nbsp;</label>
+        <div class="table-container">
+          <table class="table">
+            <thead class="table-header">
+              <tr>
+                <th scope="col" class="table-active"> Estados de aceptación</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyA">
+  
+            </tbody>
+          </table>
+        </div>
+      </div>            
+
+      <div class="col-sm-6" id="matriz" style="display:none;max-height: 400px; overflow: hidden;margin-top: 0;">
+        <label for="firstName" class="form-label ">Matriz</label>
+        <div class="table-container">
+          <table class="table">
+            <thead class="table-header">
+              <tr id="alfabeto">
+                <th scope="col" class="table-active"> Estado</th>
+              </tr>
+            </thead>
+            <tbody id="matrix">
+            </tbody>
+          </table>
+        </div>
+        </div>
+    </div>
+     <!-- <hr> -->
+    <div class="col-md-12 col-lg-12" id="reset" style="display:none">
+        <button  class="w-100 btn btn-outline-primary btn-lg"    onclick="window.location.reload()"><i class="fas fa-sync-alt"> &nbsp;</i>Limpiar datos</button>
+    </div>
+  </main>
+
+  <!-- <footer class="my-2 text-muted text-center text-small">
+    <p class="mb-1 ">&copy; 2024 Bryger</p>
+  </footer> -->
+</div>
+
+    <script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
