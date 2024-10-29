@@ -1,7 +1,6 @@
 'use strict'
 
-const inputArchivo = document.getElementById('archivo');
-const btnEjecutar = document.getElementById('btn-ejecutar');
+const inputArchivo = document.getElementById('documento');
 const txtContent = document.getElementById('txt-content');
 const txtTitle = document.getElementById('txttitle'); 
 const tbodyA = document.getElementById('tbodyA');
@@ -9,7 +8,7 @@ const vectorQ = document.getElementById('vectorQ');
 const vectorA = document.getElementById('vectorA');
 const vectorE = document.getElementById('vectorE');
 const txt = document.getElementById('txt');
-const btnReset = document.getElementById('reset');
+const reloadDiv = document.getElementById('reload');
 const matrizTransicion = document.getElementById('matriz');
 let title = '';
 
@@ -23,7 +22,7 @@ inputArchivo.addEventListener('change', function() {
 
 
     if (extension === 'txt') {
-      btnEjecutar.disabled = false;
+      ejecutar();
     } else {
       Swal.fire({
         title: 'Error!',
@@ -45,26 +44,27 @@ inputArchivo.addEventListener('change', function() {
 });
 
 
-btnEjecutar.addEventListener('click', function () {
+async function ejecutar() {
   event.preventDefault();
   const archivo = inputArchivo.files[0];
-  const lector = new FileReader();
+  const contenidoArchivo = new FileReader();
   txtTitle.textContent = title;
 
-  lector.onload = async function (event) {
+  contenidoArchivo.onload = async function (event) {
     txtContent.value = event.target.result; 
-    const lines = txtContent.value.split('\n').map(line => line.trim());
-    const QLINE = lines[0];
-    const ZLINE = lines[1];
-    const iLINE = lines[2];
-    const ALINE = lines[3];
-    const WLINE = lines[4];
+    const lineasTxt = txtContent.value.split('\n').map(line => line.trim());
+    const LINEA_ESTADOS = lineasTxt[0];
+    const LINEA_ALFABETO = lineasTxt[1];
+    const LINEA_ESTADO_INICIAL = lineasTxt[2];
+    const ESTADOS_ACEPTACION_LINEA = lineasTxt[3];
+    const LINEA_TRANSICIONES = lineasTxt[4];
 
-    let vQ = await validaQ(QLINE);
-    let vZ = await validaZ(ZLINE);
-    let vI = await validaI(iLINE);
-    let vA = await validaA(ALINE);
-    let vW = await validaW(WLINE);
+    let vQ = await validaQ(LINEA_ESTADOS);
+    let vZ = await validaZ(LINEA_ALFABETO);
+    let vI = await validaI(LINEA_ESTADO_INICIAL);
+    let vA = await validaA(ESTADOS_ACEPTACION_LINEA);
+    let vW = await validaW(LINEA_TRANSICIONES);
+    document.getElementById('carga-archivo-form').style.display = 'none';
 
     if(vQ){
       if(vZ){
@@ -72,10 +72,10 @@ btnEjecutar.addEventListener('click', function () {
           if(vA){
             if(vW){
               // Se define el vector de estados
-              const Q = await LIMPIARCOMA(QLINE);
+              const Q = await LIMPIARCOMA(LINEA_ESTADOS);
               // Se define el vector del alfabeto
-              const Z = await LIMPIARCOMA(ZLINE);
-              const arri = iLINE.split('=');
+              const Z = await LIMPIARCOMA(LINEA_ALFABETO);
+              const arri = LINEA_ESTADO_INICIAL.split('=');
               // Se define el vector de estado inicial
               const i = arri[1].trim();
               if(!Q.some(e => e.includes(i))){
@@ -89,8 +89,8 @@ btnEjecutar.addEventListener('click', function () {
                   }
                 });
                 txt.style.display='block';
-                btnReset.style.display ='block';
-                btnEjecutar.style.display='none';
+
+                
                 return;
               }
               const duplicidadQ = await arrDuplicidad(Q);
@@ -107,8 +107,7 @@ btnEjecutar.addEventListener('click', function () {
                   }
                 });
                 txt.style.display='block';
-                btnReset.style.display ='block';
-                btnEjecutar.style.display='none';
+
                 return;
               }
               if(duplicidadZ){
@@ -122,11 +121,11 @@ btnEjecutar.addEventListener('click', function () {
                   }
                 });
                 txt.style.display='block';
-                btnReset.style.display ='block';
-                btnEjecutar.style.display='none';
+
+                
                 return;
               }
-              const A = await LIMPIARCOMA(ALINE);
+              const A = await LIMPIARCOMA(ESTADOS_ACEPTACION_LINEA);
               let verificaAEnQ = await validarElementosQ(Q,A);
               
               const duplicidadA = await arrDuplicidad(A);
@@ -141,8 +140,8 @@ btnEjecutar.addEventListener('click', function () {
                   }
                 });
                 txt.style.display='block';
-                btnReset.style.display ='block';
-                btnEjecutar.style.display='none';
+
+                
                 return;
               }
 
@@ -157,11 +156,11 @@ btnEjecutar.addEventListener('click', function () {
                   }
                 });
                 txt.style.display='block';
-                btnReset.style.display ='block';
-                btnEjecutar.style.display='none';
+
+                
                 return;                
               }
-              const W = await LIMPIARW(WLINE);
+              const W = await LIMPIARW(LINEA_TRANSICIONES);
               // console.log(A,Q,Z);
               let tA = A.length;
               let tQ = Q.length;
@@ -175,22 +174,21 @@ btnEjecutar.addEventListener('click', function () {
               let errmat = await imprimirMatriz(Q,Z,W);
               if(errmat == 'error'){
                 txt.style.display='block';
-                btnReset.style.display ='block';
-                btnEjecutar.style.display='none';
+
+                
                 return;
               }
               vectorA.style.display='block';
               vectorQ.style.display='block';
               vectorE.style.display='block';
               txt.style.display='block';
-              btnReset.style.display='block';
+              
               matrizTransicion.style.display='block';
-              document.getElementById('carga-archivo-form').style.display = 'none';
             }else{
               Swal.fire({
                 title: 'Error!',
                 html: 'Problema con el formato de entrada de w<br><br>' +
-                      'Cadena encontrada: ' + WLINE + '<br>' +
+                      'Cadena encontrada: ' + LINEA_TRANSICIONES + '<br>' +
                       'Formato aceptable: w={(A,a,B);(A,a,A);(A,b,A);(B,a,B);(B,b,A)}',
                 icon: 'error',
                 confirmButtonText: 'Ok',
@@ -199,15 +197,15 @@ btnEjecutar.addEventListener('click', function () {
                 }
               });
               txt.style.display='block';
-              btnReset.style.display ='block';
-              btnEjecutar.style.display='none';
+              
+              
             }
           }else{
 
             Swal.fire({
               title: 'Error!',
               html: 'Problema con el formato de entrada de A<br><br>' +
-                    'Cadena encontrada: ' + ALINE + '<br>' +
+                    'Cadena encontrada: ' + ESTADOS_ACEPTACION_LINEA + '<br>' +
                     'Formato aceptable: A = {A,B}',
               icon: 'error',
               confirmButtonText: 'Ok',
@@ -216,14 +214,14 @@ btnEjecutar.addEventListener('click', function () {
               }
             });
             txt.style.display='block';
-            btnReset.style.display ='block';
-            btnEjecutar.style.display='none';
+            
+            
           }
         }else{
           Swal.fire({
             title: 'Error!',
             html: 'Problema con el formato de entrada de i<br><br>' +
-                  'Cadena encontrada: ' + iLINE + '<br>' +
+                  'Cadena encontrada: ' + LINEA_ESTADO_INICIAL + '<br>' +
                   'Formato aceptable: i = A',
             icon: 'error',
             confirmButtonText: 'Ok',
@@ -232,14 +230,14 @@ btnEjecutar.addEventListener('click', function () {
             }
           });
           txt.style.display='block';
-          btnReset.style.display ='block';
-          btnEjecutar.style.display='none';
+          
+          
         }
       }else{
         Swal.fire({
           title: 'Error!',
           html: 'Problema con el formato de entrada de Z<br><br>' +
-                'Cadena encontrada: ' + ZLINE + '<br>' +
+                'Cadena encontrada: ' + LINEA_ALFABETO + '<br>' +
                 'Formato aceptable: Z={a,b}',
           icon: 'error',
           confirmButtonText: 'Ok',
@@ -248,14 +246,14 @@ btnEjecutar.addEventListener('click', function () {
           }
         });
         txt.style.display='block';
-        btnReset.style.display ='block';
-        btnEjecutar.style.display='none';
+        
+        
       }
     }else{
       Swal.fire({
         title: 'Error!',
         html: 'Problema con el formato de entrada de Q<br><br>' +
-              'Cadena encontrada: ' + QLINE + '<br>' +
+              'Cadena encontrada: ' + LINEA_ESTADOS + '<br>' +
               'Formato aceptable: Q={A,B}',
         icon: 'error',
         confirmButtonText: 'Ok',
@@ -265,13 +263,13 @@ btnEjecutar.addEventListener('click', function () {
       });
       
       txt.style.display='block';
-      btnReset.style.display ='block';
-      btnEjecutar.style.display='none';
+      
+      
     }
   };
 
-  lector.readAsText(archivo); 
-});
+  contenidoArchivo.readAsText(archivo); 
+}
 
 async function LIMPIARCOMA(str){
   const contenido = str.match(/\{([^}]*)\}/)[1];
