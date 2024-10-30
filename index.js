@@ -319,18 +319,18 @@ async function imprimirMatriz(estados,alfabeto,transiciones){
     for (let j = 0; j < alfabeto.length; j++) {
       let transition ='';
       transiciones.forEach(e => {
-        let [current_status, element, next_status] = e.replace(/[()]/g, '').split(',');
-        let exist_current_status = estados.some(e => e.includes(current_status));
-        let exist_element = alfabeto.some(e => e.includes(element));
-        let exist_next_status = estados.some(e => e.includes(next_status));
+        let [estado_actual, elemento, siguiente_estado] = e.replace(/[()]/g, '').split(',');
+        let existe_estado_actual = estados.some(e => e.includes(estado_actual));
+        let existe_elemento = alfabeto.some(e => e.includes(elemento));
+        let existe_siguiente_estado = estados.some(e => e.includes(siguiente_estado));
         
-        if (!exist_current_status || !exist_element || !exist_next_status) {
+        if (!existe_estado_actual || !existe_elemento || !existe_siguiente_estado) {
           errorTransicion++;
         }
         
-        if(current_status == estados[i]){
-          if(alfabeto[j] == element){
-            transition+=next_status;
+        if(estado_actual == estados[i]){
+          if(alfabeto[j] == elemento){
+            transition+=siguiente_estado;
           }
         }
       });
