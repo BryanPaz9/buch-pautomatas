@@ -65,19 +65,18 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-      /* Limita la altura total del contenedor y habilita scroll solo en el cuerpo de la tabla */
+      
       .table-container {
-        max-height: 250px; /* Altura fija del área de tabla */
+        max-height: 250px;
         overflow-y: auto;
-        /*border: 1px solid #dee2e6;  Opcional: borde para que resalte */
       }
 
-      /* Fija el encabezado de la tabla */
+      
       .table-header th {
         position: sticky;
         top: 0;
-        background-color: #f8f9fa; /* Color del encabezado */
-        z-index: 10; /* Asegura que el encabezado se superponga al contenido */
+        background-color: #f8f9fa; 
+        z-index: 10; 
         border-bottom: 2px solid #dee2e6;
         font-weight: normal;
       }
@@ -85,13 +84,12 @@
       .table-header td tr {
         position: sticky;
         top: 0;
-        background-color: #ffffff; /* Color del encabezado */
-        z-index: 10; /* Asegura que el encabezado se superponga al contenido */
+        background-color: #ffffff;
+        z-index: 10; 
         border-bottom: 2px solid #dee2e6;
         font-weight: normal;
       }
 
-      /* Ajusta el ancho de las columnas para evitar desajustes */
       .table {
         width: 100%;
         table-layout: fixed;
@@ -99,15 +97,14 @@
       }
 
       .custom-confirm-button {
-            background-color: rgb(65, 85, 136); /* Cambia este color al que desees */
-            color: white; /* Cambia el color del texto del botón */
-            border: none; /* Opcional: elimina el borde */
-            border-radius: 5px; /* Opcional: añade bordes redondeados */
+            background-color: rgb(65, 85, 136);
+            color: white;
+            border: none; 
+            border-radius: 5px;
         }
     </style>
 
     
-    <!-- Custom styles for this template -->
     <link href="form-validation.css" rel="stylesheet">
   </head>
   <body class="bg-light">
@@ -116,12 +113,12 @@
     <div class="container">
       <div class="row g-3">
         <div class="col-sm-6">
-          <p>Nombre: Josue David Caal Sazo</p>
-          <p>Carnet:</p>
+          <p>Nombre: Josué David López Buch</p>
+          <p>Carnet: 5990-22-4780</p>
         </div>
         <div class="col-sm-6">
           <p>Curso: Autómatas y lenguajes formales</p>
-          <p>Proyecto final, AFN y AFD</p>
+          <p>Proyecto: Final, AFN y AFD</p>
         </div>
       </div>
     </div>
@@ -157,8 +154,8 @@
         <textarea class="form-control" id="txt-content"  rows="5" disabled></textarea>
       </div>
       <!-- <hr class="my-0"> -->
-      <div class="col-sm-2" id="vectorQ" style="display:none;margin-top: 0;">
-        <label for="vectorQ" class="form-label ">Vectores</label>
+      <div class="col-sm-2" id="vectorEstados" style="display:none;margin-top: 0;">
+        <label for="vectorEstados" class="form-label ">Vectores</label>
         <div class="table-container">
           <table class="table">
             <thead class="table-header">
@@ -172,8 +169,8 @@
           </table>
         </div>
       </div>
-      <div class="col-sm-2" id="vectorE" style="display:none;margin-top: 0;">
-        <label for="vectorE" class="form-label">&nbsp;</label>
+      <div class="col-sm-2" id="vectorAlfabeto" style="display:none;margin-top: 0;">
+        <label for="vectorAlfabeto" class="form-label">&nbsp;</label>
         <div class="table-container">
           <table class="table">
             <thead class="table-header">
@@ -187,8 +184,8 @@
           </table>
         </div>
       </div>
-      <div class="col-sm-2" id="vectorA" style="display:none;margin-top: 0;">
-        <label for="vectorA" class="form-label">&nbsp;</label>
+      <div class="col-sm-2" id="vectorEstadosAceptacion" style="display:none;margin-top: 0;">
+        <label for="vectorEstadosAceptacion" class="form-label">&nbsp;</label>
         <div class="table-container">
           <table class="table">
             <thead class="table-header">
@@ -196,7 +193,7 @@
                 <th scope="col" class="table-active"> Estados de aceptación</th>
               </tr>
             </thead>
-            <tbody id="tbodyA">
+            <tbody id="bodyEstadosAceptacion">
   
             </tbody>
           </table>
@@ -220,9 +217,6 @@
     </div>
   </main>
 
-  <!-- <footer class="my-2 text-muted text-center text-small">
-    <p class="mb-1 ">&copy; 2024 Bryger</p>
-  </footer> -->
 </div>
 
     <script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
