@@ -1,12 +1,12 @@
 'use strict'
 let title = '';
-const inputArchivo = document.getElementById('documento');
-const txtContent = document.getElementById('txt-content');
-const txtTitle = document.getElementById('txttitle'); 
 const bodyEstadosAceptacion = document.getElementById('bodyEstadosAceptacion');
 const vectorEstados = document.getElementById('vectorEstados');
 const vectorEstadosAceptacion = document.getElementById('vectorEstadosAceptacion');
 const vectorAlfabeto = document.getElementById('vectorAlfabeto');
+const inputArchivo = document.getElementById('documento');
+const txtContent = document.getElementById('txt-content');
+const txtTitle = document.getElementById('txttitle'); 
 const txt = document.getElementById('txt');
 const reloadDiv = document.getElementById('reload');
 const matTransicion = document.getElementById('matriz');
@@ -18,7 +18,7 @@ inputArchivo.addEventListener('change', function() {
 
   if (archivo) {
     const extension = archivo.name.split('.').pop().toLowerCase();
-    title = 'Contenido de archivo ' + archivo.name;
+    title = 'Contenido del .txt ' + archivo.name;
 
 
     if (extension === 'txt') {
@@ -26,7 +26,7 @@ inputArchivo.addEventListener('change', function() {
     } else {
       Swal.fire({
         title: 'Error!',
-        html: 'El formato del archivo no es compatible con esta función. Solo se aceptan archivos .txt.',
+        html: 'Solo se aceptan archivos .txt.',
         icon: 'error',
         confirmButtonText: 'Ok',
         customClass: {
@@ -58,7 +58,7 @@ async function ejecutar() {
     if(!regexQ.test(LINEA_ESTADOS)){
       Swal.fire({
         title: 'Error!',
-        html: 'Problema con el formato de entrada de Q<br><br>' +
+        html: 'Problema con la definición de estados<br><br>' +
               'Cadena encontrada: ' + LINEA_ESTADOS + '<br>' +
               'Formato aceptable: Q={A,B}',
         icon: 'error',
@@ -75,7 +75,7 @@ async function ejecutar() {
     if(!regexZ.test(LINEA_ALFABETO)){
       Swal.fire({
         title: 'Error!',
-        html: 'Problema con el formato de entrada de Z<br><br>' +
+        html: 'Problema con el alfabeto<br><br>' +
               'Cadena encontrada: ' + LINEA_ALFABETO + '<br>' +
               'Formato aceptable: Z={a,b}',
         icon: 'error',
@@ -92,7 +92,7 @@ async function ejecutar() {
     if(!regexI.test(LINEA_ESTADO_INICIAL)){
       Swal.fire({
         title: 'Error!',
-        html: 'Problema con el formato de entrada de i<br><br>' +
+        html: 'Problema con la línea del estado inicial<br><br>' +
               'Cadena encontrada: ' + LINEA_ESTADO_INICIAL + '<br>' +
               'Formato aceptable: i = A',
         icon: 'error',
@@ -109,7 +109,7 @@ async function ejecutar() {
     if(!regexA.test(ESTADOS_ACEPTACION_LINEA)){
       Swal.fire({
         title: 'Error!',
-        html: 'Problema con el formato de entrada de A<br><br>' +
+        html: 'Problema con la línea de Estados de aceptación<br><br>' +
               'Cadena encontrada: ' + ESTADOS_ACEPTACION_LINEA + '<br>' +
               'Formato aceptable: A = {A,B}',
         icon: 'error',

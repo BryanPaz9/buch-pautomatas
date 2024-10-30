@@ -71,6 +71,10 @@
         overflow-y: auto;
       }
 
+      .container {
+        max-width: 1400px;
+      }
+
       
       .table-header th {
         position: sticky;
@@ -78,7 +82,7 @@
         background-color: #f8f9fa; 
         z-index: 10; 
         border-bottom: 2px solid #dee2e6;
-        font-weight: normal;
+        font-weight: bold;
       }
 
       .table-header td tr {
@@ -102,10 +106,12 @@
             border: none; 
             border-radius: 5px;
         }
+      .bold-text{
+        font-weight: bold;
+      }
     </style>
 
     
-    <link href="form-validation.css" rel="stylesheet">
   </head>
   <body class="bg-light">
     
@@ -113,12 +119,12 @@
     <div class="container">
       <div class="row g-3">
         <div class="col-sm-6">
-          <p>Nombre: Josué David López Buch</p>
-          <p>Carnet: 5990-22-4780</p>
+          <p class="bold-text">Nombre: Josué David López Buch</p>
+          <p class="bold-text">Carnet: 5990-22-4780</p>
         </div>
         <div class="col-sm-6">
-          <p>Curso: Autómatas y lenguajes formales</p>
-          <p>Proyecto: Final, AFN y AFD</p>
+          <p class="bold-text">Curso: Autómatas y lenguajes formales</p>
+          <p class="bold-text">Proyecto: Final, AFN y AFD</p>
         </div>
       </div>
     </div>
@@ -131,7 +137,7 @@
       <div class="col-md-12 col-lg-12" id="carga-archivo-form">
         <div class="row g-3">
           <div class="col-sm-9">
-            <p>Arrastre un archivo .txt hacia el input</p>
+            <p class="bold-text">Arrastre un archivo .txt hacia el input</p>
           </div>
         </div>
 
@@ -139,7 +145,7 @@
           <div class="row g-3">
             <div class="col-sm-12">
               <div class="input-group mb-3">
-                <input type="file" class="form-control form-control-lg " id="documento">
+                <input  type="file" class="form-control form-control-lg bold-text" id="documento">
               </div>
             </div>
           </div>
@@ -148,19 +154,19 @@
         </form>
       </div>
       <div class="mb-3" id="txt" style="display:none">
-        <label id="txttitle" for="txt-content" class="form-label "></label>
-        <button  class="w-100 btn btn-outline-primary btn-sm"    onclick="window.location.reload()"> &nbsp;</i>Limpiar datos</button>
-        <label id="txttitle" for="txt-content" class="form-label "></label>
-        <textarea class="form-control" id="txt-content"  rows="5" disabled></textarea>
+        <label id="txttitle" for="txt-content" class="form-label bold-text"></label>
+        <button  class="w-100 btn btn-outline-primary btn-sm bold-text"    onclick="window.location.reload()"> &nbsp;</i>Limpiar datos</button>
+        <label id="txttitle" for="txt-content" class="form-label bold-text"></label>
+        <textarea class="form-control bold-text" id="txt-content"  rows="5" disabled></textarea>
       </div>
       <!-- <hr class="my-0"> -->
       <div class="col-sm-2" id="vectorEstados" style="display:none;margin-top: 0;">
-        <label for="vectorEstados" class="form-label ">Vectores</label>
+        <label for="vectorEstados" class="form-label bold-text">Vectores</label>
         <div class="table-container">
           <table class="table">
             <thead class="table-header">
               <tr>
-                <th scope="col" class="table-active"> Estados</th>
+                <th scope="col" class="table-active bold-text"> Estados</th>
               </tr>
             </thead>
             <tbody id="tbodyQ">
@@ -175,7 +181,7 @@
           <table class="table">
             <thead class="table-header">
               <tr>
-                <th scope="col" class="table-active"> Alfabeto</th>
+                <th scope="col" class="table-active bold-text"> Alfabeto</th>
               </tr>
             </thead>
             <tbody id="tbodyZ">
@@ -190,7 +196,7 @@
           <table class="table">
             <thead class="table-header">
               <tr>
-                <th scope="col" class="table-active"> Estados de aceptación</th>
+                <th scope="col" class="table-active bold-text"> Estados de aceptación</th>
               </tr>
             </thead>
             <tbody id="bodyEstadosAceptacion">
@@ -201,12 +207,12 @@
       </div>            
 
       <div class="col-sm-6" id="matriz" style="display:none;max-height: 400px; overflow: hidden;margin-top: 0;">
-        <label for="firstName" class="form-label ">Matriz</label>
+        <label for="firstName" class="form-label bold-text">Matriz</label>
         <div class="table-container">
           <table class="table">
             <thead class="table-header">
               <tr id="alfabeto">
-                <th scope="col" class="table-active"> Estado</th>
+                <th scope="col" class="table-active bold-text"> Estado</th>
               </tr>
             </thead>
             <tbody id="matrix">
